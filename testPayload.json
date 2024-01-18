@@ -1,0 +1,44 @@
+{
+  "apiOperation": "INITIATE_CHECKOUT",
+  "interaction": {
+    "merchant": {
+      "name": "The Company Co",
+      "url": "https://www.merchant-site.com",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Verlagsgruppe_Random_House_Logo_2016.png"
+    },
+    "displayControl": {
+      "billingAddress": "MANDATORY",
+      "customerEmail": "MANDATORY"
+    },
+    "timeout": 1800,
+    "timeoutUrl": "https://www.google.com",
+    "cancelUrl": "http://www.google.com",
+    "operation": "PURCHASE",
+    "style": {
+      "accentColor": "#30cbe3"
+    }
+  },
+  "billing": {
+    "address": {
+      "city": "St Louis",
+      "stateProvince": "MO",
+      "country": "USA",
+      "postcodeZip": "63102",
+      "street": "11 N 4th St",
+      "street2": "The Gateway Arch"
+    }
+  },
+  "order": {
+    "amount": "123.60",
+    "currency": "EUR",
+    "description": "This is the order description",
+    "id": "ORDER-4142773a-ac2e"
+  },
+  "customer": {
+    "email": "peteMorris@mail.us.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "mobilePhone": "+1 5557891230",
+    "phone": "+1 1234567890"
+  }
+}

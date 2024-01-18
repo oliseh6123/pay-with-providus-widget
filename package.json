@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build && next export -o build",
+        "build": "next build && next export .out",
         "start": "next build && next start -p 22502 ",
         "lint": "next lint"
     },

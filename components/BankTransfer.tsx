@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
@@ -7,12 +7,14 @@ import { format } from "date-fns";
 
 import { Loader } from "./Loader";
 import { naira, formatNumber, handleIframeAction } from "@/utils/helpers";
+import { baseApi } from "@/services/api";
 
 export const PayWithBankTransfer = ({
   setType,
   customerDetails,
   accountDetails,
   paymentDetails,
+  setPaymentDetails,
   generateAccountNumberFn,
   loading,
   error,
@@ -23,16 +25,36 @@ export const PayWithBankTransfer = ({
   customerDetails: Record<string, any>;
   accountDetails: Record<string, any>;
   paymentDetails: Record<string, any>;
+  setPaymentDetails: Function;
   generateAccountNumberFn: () => void;
   loading: boolean;
   error: string;
   resetDetailsFn: (e?: any) => void;
   setError: Function;
 }) => {
+  const paymentRef = useRef(null);
   const [status, setStatus] = useState("details");
   const [marginCount, setMarginCount] = useState(0);
   const [margin, setMargin] = useState("ml-[0%]");
   const [currentTime, setCurrentTime] = useState(Date.now());
+
+  const refetchPaymentDetails = async () => {
+    try {
+      const { data } = await baseApi.post("/transactions/status", {
+        publicKey: customerDetails?.publicKey,
+        customerReference: customerDetails?.reference,
+        accountNumber: accountDetails?.accountNumber,
+      });
+
+      if (data?.data?.transactionStatus === "PAID") {
+        setPaymentDetails(data?.data);
+        setStatus("payment success");
+        clearInterval(paymentRef.current);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (status === "payment sent") {
@@ -68,6 +90,16 @@ export const PayWithBankTransfer = ({
     if (accountDetails?.accountNumber) {
       setCurrentTime(Date.now() + 30 * 60000);
     }
+  }, [accountDetails?.accountNumber]);
+
+  useEffect(() => {
+    if (!accountDetails?.accountNumber) return;
+
+    paymentRef.current = setInterval(refetchPaymentDetails, 30000);
+
+    return () => {
+      clearInterval(paymentRef.current);
+    };
   }, [accountDetails?.accountNumber]);
 
   const renderDetails = () => {

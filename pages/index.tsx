@@ -129,6 +129,7 @@ const Home = () => {
             customerDetails={customerDetails}
             accountDetails={accountDetails}
             paymentDetails={paymentDetails}
+            setPaymentDetails={setPaymentDetails}
             generateAccountNumberFn={generateAccountNumberFn}
             loading={loading}
             error={error}

@@ -141,8 +141,8 @@ export const SelectPaymentType = ({
           <p className="text-[15px] leading-[21px] text-secondary-black text-center">
             Kindly select any of the payment options provided below to make a
             payment of{" "}
-            <span className="text-primary-yellow">
-              {customerDetails?.currency}
+            <span className="text-primary-black font-[900] text-[17px]">
+              {customerDetails?.currency}{" "}
               {formatNumber(`${customerDetails?.amount || 0}`)}
             </span>{" "}
             to <br />

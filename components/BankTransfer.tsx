@@ -143,7 +143,7 @@ export const PayWithBankTransfer = ({
                 {customerDetails?.customerName}
               </span>
             </p>
-            <p className="text-[24px] leading-[21px] text-primary-yellow text-center mt-2">
+            <p className="text-[24px] leading-[21px] text-primary-black text-center mt-2">
               {naira}
               {formatNumber(`${accountDetails?.amount}`)}
             </p>
@@ -219,7 +219,7 @@ export const PayWithBankTransfer = ({
           </p>
           <p className="text-[15px] leading-[21px] text-secondary-black text-center mt-2">
             Your payment of{" "}
-            <span className="text-primary-black text-[17px]">
+            <span className="text-primary-black text-[17px] font-[900]">
               {naira}
               {formatNumber(`${paymentDetails?.amount || 0}`)}
             </span>{" "}
@@ -311,7 +311,7 @@ export const PayWithBankTransfer = ({
             }}
             renderer={({ minutes, seconds }) => {
               return (
-                <p className="text-[18px] text-primary-yellow text-center mb-3">
+                <p className="text-[18px] text-primary-black text-center mb-3">
                   {minutes}:{seconds}{" "}
                   {minutes > 0 ? "minutes" : seconds > 0 ? "seconds" : ""}
                 </p>
@@ -324,7 +324,7 @@ export const PayWithBankTransfer = ({
               {accountDetails?.accountName}
             </span>
           </p>
-          <p className="text-[24px] leading-[21px] text-primary-yellow text-center mt-2">
+          <p className="text-[24px] leading-[21px] text-primary-black text-center mt-2">
             {naira}
             {formatNumber(`${accountDetails?.amount || 0}`)}
           </p>
@@ -384,7 +384,7 @@ export const PayWithBankTransfer = ({
               {accountDetails?.accountName}
             </span>
           </p>
-          <p className="text-[24px] leading-[21px] text-primary-yellow text-center mt-2">
+          <p className="text-[24px] leading-[21px] text-primary-black text-center mt-2">
             {naira}
             {formatNumber(`${accountDetails?.amount}`)}
           </p>
@@ -444,7 +444,7 @@ export const PayWithBankTransfer = ({
               <p className="text-[14px] text-tertiary-black text-center">
                 Transaction Amount
               </p>
-              <p className="text-[18px] text-primary-yellow text-center mt-1">
+              <p className="text-[18px] text-primary-black text-center mt-1">
                 {naira}
                 {formatNumber(`${paymentDetails?.amount || 0}`)}
               </p>
@@ -502,7 +502,9 @@ export const PayWithBankTransfer = ({
                   </p>
                   <div className="w-[55%] text-right">
                     <p className="text-[14px] text-primary-black w-[99.99%] break-words">
-                      {paymentDetails?.reference}
+                      {paymentDetails?.customerReference
+                        ? paymentDetails?.customerReference?.substring(4)
+                        : null}
                     </p>
                   </div>
                 </div>
